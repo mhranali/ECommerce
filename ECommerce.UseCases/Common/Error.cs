@@ -36,5 +36,4 @@ public enum ErrorType
     Unauthorized = 4,
     Forbidden = 5,
     InvalidCredentials = 6
-
 }

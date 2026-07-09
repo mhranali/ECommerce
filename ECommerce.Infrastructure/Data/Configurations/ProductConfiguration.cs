@@ -12,6 +12,7 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithMany()
             .HasForeignKey(p => p.BrandId);
 
+
         builder.HasOne(p => p.ProductType)
             .WithMany()
             .HasForeignKey(p => p.TypeId);
