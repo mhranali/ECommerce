@@ -31,10 +31,9 @@ internal class CatalogDataSeeder(StoreDbContext dbContext, ILogger<CatalogDataSe
             else
                 logger.LogInformation("Database Already Seeded");
         }
-        catch
+        catch (Exception ex)
         {
-
-
+            logger.LogError(ex, "An error occurred while seeding the database");
         }
     }
 
