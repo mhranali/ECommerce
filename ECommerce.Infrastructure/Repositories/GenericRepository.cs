@@ -23,4 +23,24 @@ internal class GenericRepository<TEntity, TKey>(StoreDbContext dbContext) : IGen
     public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken ct = default)
         => await dbContext.Set<TEntity>().FindAsync(id, ct);
 
+    public async Task<IReadOnlyList<TEntity>> GetAllWithSpecificationsAsync(ISpecifications<TEntity, TKey> specifications, CancellationToken ct = default)
+    {
+        var result = SpecificationEvaluator.GetQuery(dbContext.Set<TEntity>(), specifications);
+
+        return await result.ToListAsync(ct);
+    }
+
+    public async Task<TEntity?> GetByIdWithSpecificationAsync(ISpecifications<TEntity, TKey> specifications, CancellationToken ct = default)
+    {
+        var result = SpecificationEvaluator.GetQuery(dbContext.Set<TEntity>(), specifications);
+
+        return await result.FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<int> GetCountWithSpecificationsAsync(ISpecifications<TEntity, TKey> specifications, CancellationToken ct = default)
+    {
+        var result = SpecificationEvaluator.GetQuery(dbContext.Set<TEntity>(), specifications);
+
+        return await result.CountAsync(ct);
+    }
 }
