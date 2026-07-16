@@ -1,6 +1,7 @@
 ﻿using ECommerce.UseCases.Common;
 using ECommerce.UseCases.Contracts;
 using ECommerce.UseCases.DTOs.Products;
+using ECommerce.UseCases.Params;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers;
@@ -9,9 +10,10 @@ public class ProductsController(IProductService productService) : ApiBaseControl
 {
     //Get all product
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetAllProducts(CancellationToken ct = default)
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryParams queryParams, CancellationToken ct = default)
     {
-        var result = await productService.GetAllProductAsync(ct);
+        var result = await productService.GetAllProductAsync(queryParams, ct);
         return ToActionResult(result);
     }
 
