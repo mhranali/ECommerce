@@ -3,6 +3,8 @@ using ECommerce.API.Extensions;
 using ECommerce.Domain.Contracts;
 using ECommerce.Infrastructure;
 using ECommerce.UseCases;
+using ECommerce.UseCases.Profiles;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddUseCases();
 
+builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +32,11 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwaggerUI();
 }
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Files")),
+    RequestPath = "/Files"
+});
 
 app.UseHttpsRedirection();
 
