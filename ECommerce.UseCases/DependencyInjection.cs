@@ -11,6 +11,7 @@ public static class DependencyInjection
         services.AddAutoMapper(c => { }, typeof(DependencyInjection).Assembly);
 
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IBasketServices, BasketServices>();
 
         return services;
     }
