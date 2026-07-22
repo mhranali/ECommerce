@@ -29,6 +29,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddSingleton<ICacheRepository, CacheRepository>();
 
         return services;
     }

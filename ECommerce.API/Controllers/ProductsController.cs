@@ -1,4 +1,5 @@
-﻿using ECommerce.UseCases.Common;
+﻿using ECommerce.API.Attributes;
+using ECommerce.UseCases.Common;
 using ECommerce.UseCases.Contracts;
 using ECommerce.UseCases.DTOs.Products;
 using ECommerce.UseCases.Params;
@@ -11,6 +12,7 @@ public class ProductsController(IProductService productService) : ApiBaseControl
     //Get all product
     [HttpGet]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [RedisCache(90)]
     public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryParams queryParams, CancellationToken ct = default)
     {
         var result = await productService.GetAllProductAsync(queryParams, ct);
