@@ -12,6 +12,7 @@ public static class DependencyInjection
 
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IBasketServices, BasketServices>();
+        services.AddSingleton<ICacheServices, CacheServices>();
 
         return services;
     }
