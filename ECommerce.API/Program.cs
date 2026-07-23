@@ -2,8 +2,10 @@ using ECommerce.API;
 using ECommerce.API.Extensions;
 using ECommerce.Domain.Contracts;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Identity.Entities;
 using ECommerce.UseCases;
 using ECommerce.UseCases.Profiles;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddUseCases();
 
 builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
+
 
 var app = builder.Build();
 
